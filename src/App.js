@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import {useState} from "react";
+
+const ApiTester = () => {
+  const [users, setUsers] = useState([])
+  const makeRequest = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:8080/users', {
+      type: 'admin'
+    }).then(response => setUsers(response.data.users))
+  };
+
+  return <div>
+    { users.map(user => {
+      return <div>
+        <p>{ user.name }</p>
+        <p>{ user.id }</p>
+      </div>
+    }) }
+    <button onClick={makeRequest}>Test API</button>
+  </div>
+};
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ApiTester/>
     </div>
   );
 }
