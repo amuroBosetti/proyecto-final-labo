@@ -3,17 +3,45 @@ import axios from "axios";
 import {useState} from "react";
 
 const ApiTester = () => {
-  const [requestOk, setRequestOk] = useState(false)
+  const [firstName, setFirstName] = useState('')
+  const [secondName, setSecondName] = useState('')
+  const [thirdName, setThirdName] = useState('')
+  const [returnedIds, setReturnedIds] = useState([])
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value)
+  }
+
+  const handleSecondNameChange = (event) => {
+    setSecondName(event.target.value)
+  }
+
+  const handleThirdNameChange = (event) => {
+    setThirdName(event.target.value)
+  }
 
   const makeRequest = (event) => {
     event.preventDefault();
-    axios.get('http://localhost:8000/', {
-    }).then(setRequestOk(true))
+    axios.post('http://localhost:8000/nombres', {
+      firstName,
+      secondName,
+      thirdName
+    }).then((response) => {
+      setReturnedIds(response.data.ids)
+    })
   };
 
   return <div>
-    { requestOk ? <h2>GET a / salio bien</h2> : <h2>GET a / aun no se envio</h2> }
+    <input type="text" value={firstName} onChange={handleFirstNameChange} />
+    <input type="text" value={secondName} onChange={handleSecondNameChange} />
+    <input type="text" value={thirdName} onChange={handleThirdNameChange} />
     <button onClick={makeRequest}>Test API</button>
+
+    <ul>
+      {returnedIds.map((id) => {
+        return <li>{id}</li>
+      })}
+    </ul>
   </div>
 };
 
