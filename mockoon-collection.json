@@ -1,0 +1,90 @@
+{
+  "uuid": "9a15cb82-a5c5-49de-b68c-49a1221a8692",
+  "lastMigration": 27,
+  "name": "Labo",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 8000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "835c06c4-b113-4819-8ed6-b8a8ddfd9b40",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "d2a6a1ee-94a9-4aaa-a4cf-fbfe5491c4cc",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "835c06c4-b113-4819-8ed6-b8a8ddfd9b40"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
