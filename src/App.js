@@ -3,21 +3,16 @@ import axios from "axios";
 import {useState} from "react";
 
 const ApiTester = () => {
-  const [users, setUsers] = useState([])
+  const [requestOk, setRequestOk] = useState(false)
+
   const makeRequest = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8080/users', {
-      type: 'admin'
-    }).then(response => setUsers(response.data.users))
+    axios.get('http://localhost:8000/', {
+    }).then(setRequestOk(true))
   };
 
   return <div>
-    { users.map(user => {
-      return <div>
-        <p>{ user.name }</p>
-        <p>{ user.id }</p>
-      </div>
-    }) }
+    { requestOk ? <h2>GET a / salio bien</h2> : <h2>GET a / aun no se envio</h2> }
     <button onClick={makeRequest}>Test API</button>
   </div>
 };
