@@ -3,45 +3,42 @@ import axios from "axios";
 import {useState} from "react";
 
 const ApiTester = () => {
-  const [firstName, setFirstName] = useState('')
-  const [secondName, setSecondName] = useState('')
-  const [thirdName, setThirdName] = useState('')
-  const [returnedIds, setReturnedIds] = useState([])
+  const [checkboxStatus, setCheckboxStatus] = useState(false)
+  const [responseOk, setResponseOk] = useState(false)
+  const [responseFailed, setResponseFailed] = useState(false)
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value)
-  }
+  const handleCheckboxChange = () => {
+    setCheckboxStatus(!checkboxStatus)
+  };
 
-  const handleSecondNameChange = (event) => {
-    setSecondName(event.target.value)
-  }
-
-  const handleThirdNameChange = (event) => {
-    setThirdName(event.target.value)
-  }
 
   const makeRequest = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8000/nombres', {
-      firstName,
-      secondName,
-      thirdName
-    }).then((response) => {
-      setReturnedIds(response.data.ids)
+    axios.post('http://localhost:8000/error', {
+      isError: checkboxStatus
+    }).then(() => {
+      setResponseOk(true)
+    }).catch(() => {
+      setResponseFailed(true)
     })
   };
 
+  const successStyle = {
+    backgroundColor: "green",
+    visibility: responseOk
+  }
+
+  const failedStyle = {
+    backgroundColor: "red",
+    visibility: responseFailed
+  }
+
   return <div>
-    <input type="text" value={firstName} onChange={handleFirstNameChange} />
-    <input type="text" value={secondName} onChange={handleSecondNameChange} />
-    <input type="text" value={thirdName} onChange={handleThirdNameChange} />
+    <input type="checkbox" value={checkboxStatus} onChange={handleCheckboxChange}/>
     <button onClick={makeRequest}>Test API</button>
 
-    <ul>
-      {returnedIds.map((id) => {
-        return <li>{id}</li>
-      })}
-    </ul>
+    { responseOk && <h2 style={successStyle}>Response was successful</h2> }
+    { responseFailed && <h2 style={failedStyle}>Response was an error</h2> }
   </div>
 };
 
